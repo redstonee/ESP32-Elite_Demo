@@ -2,13 +2,24 @@
 #include "config.h"
 
 int foo = 0;
+/**
+ * @brief Handler for button 2 press event
+ *
+ * This function is called when button 2 is pressed.
+ */
 void button2Handler()
 {
   foo = 0;
   Serial.println("Button 2 pressed!");
 }
 
-void blinkCoreLed(TimerHandle_t)
+/**
+ * @brief Toggle the core LED
+ *
+ * @param xTimer The timer handle (unused)
+ * @note This function is called by an OS timer to blink the core LED.
+ */
+void toggleCoreLed(TimerHandle_t)
 {
   static bool ledState = false;
   digitalWrite(CORE_LED_PIN, ledState);
@@ -38,10 +49,15 @@ void setup()
   attachInterrupt(BUTTON2_PIN, button2Handler, FALLING);
 
   // Create a timer to blink the core LED every 500ms
-  auto ledTimer = xTimerCreate("LED Timer", 500, pdTRUE, nullptr, blinkCoreLed);
+  auto ledTimer = xTimerCreate("LED Timer", 500, pdTRUE, nullptr, toggleCoreLed);
   xTimerStart(ledTimer, 0);
 }
 
+/**
+ * @brief Turn on/off the LEDs based on the value of 'n'.
+ *
+ * @param n The number of LEDs to turn on (0-4).
+ */
 void ledShow(int n)
 {
   digitalWrite(LED1_PIN, n > 0);
