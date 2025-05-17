@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include <Adafruit_LSM6DS3.h>
 #include <MadgwickAHRS.h>
+
+#include "LED.h"
 #include "config.h"
 
 // #define USE_TELEPLOT
@@ -9,29 +11,6 @@ constexpr uint8_t IMU_ADDRESS = 0x6B; // I2C address of the LSM6DS3 IMU
 Adafruit_LSM6DS3 imu;
 Madgwick filter;
 
-void turnOnLED(uint8_t ledNum)
-{
-  constexpr uint8_t ledPins[] = {LED1_PIN, LED2_PIN, LED3_PIN, LED4_PIN};
-
-  for (auto &pin : ledPins)
-  {
-    digitalWrite(pin, 0);
-  }
-  digitalWrite(ledPins[ledNum], 1);
-}
-
-void ledTask(void *param)
-{
-  uint8_t n = 0;
-  while (1)
-  {
-    // Blink the LEDs in sequence
-    turnOnLED(n++);
-    n %= 4;
-    delay(500);
-  }
-}
-
 void setup()
 {
   // put your setup code here, to run once:
@@ -39,10 +18,7 @@ void setup()
   // Start the serial communication at 115200 baud rate
   Serial.begin(115200);
 
-  pinMode(LED1_PIN, OUTPUT);
-  pinMode(LED2_PIN, OUTPUT);
-  pinMode(LED3_PIN, OUTPUT);
-  pinMode(LED4_PIN, OUTPUT);
+  pinMode(CORE_LED_PIN, OUTPUT);
 
   Wire.setPins(IMU_SDA_PIN, IMU_SCL_PIN);
   if (!imu.begin_I2C(IMU_ADDRESS))
@@ -51,9 +27,9 @@ void setup()
     // Blink the LED to indicate failure
     while (1)
     {
-      digitalWrite(LED1_PIN, HIGH);
+      digitalWrite(CORE_LED_PIN, HIGH);
       delay(500);
-      digitalWrite(LED1_PIN, LOW);
+      digitalWrite(CORE_LED_PIN, LOW);
       delay(500);
     }
   }
@@ -71,8 +47,8 @@ void setup()
   filter.begin(50);
 #endif
 
-  // Create a task for the LED blinking
-  xTaskCreate(ledTask, "LED Task", 1024, NULL, 1, NULL);
+  // Start the LED effect
+  LED::begin();
 }
 
 #ifdef USE_TELEPLOT
