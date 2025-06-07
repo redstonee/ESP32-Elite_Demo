@@ -36,8 +36,6 @@ void handleCheckBox(lv_event_t *e)
  */
 void buildUI(lv_indev_t *indev)
 {
-  Display::init();
-
   adcBar = lv_bar_create(lv_screen_active());
   lv_obj_set_size(adcBar, 300, 20);
   lv_obj_align(adcBar, LV_ALIGN_TOP_MID, 0, 10);
