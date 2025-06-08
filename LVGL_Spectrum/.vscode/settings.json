@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "array": "cpp",
+        "lv_init.h": "c",
+        "tft_espi_esp8266.c": "cpp",
+        "tft_espi_esp32_s3.c": "cpp"
+    }
+}
