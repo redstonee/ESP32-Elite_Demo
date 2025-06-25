@@ -2,7 +2,6 @@
 #include <Adafruit_LSM6DS3.h>
 #include <MadgwickAHRS.h>
 
-#include "LED.h"
 #include "config.h"
 
 // #define USE_TELEPLOT
@@ -46,9 +45,6 @@ void setup()
   // Initialize the Madgwick filter with a sample frequency of 50 Hz
   filter.begin(50);
 #endif
-
-  // Start the LED effect
-  LED::begin();
 }
 
 #ifdef USE_TELEPLOT

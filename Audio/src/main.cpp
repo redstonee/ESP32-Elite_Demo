@@ -22,6 +22,22 @@ void mainTask(void *param)
   const std::vector<String> musicFiles{"/music1.mp3", "/music2.mp3", "/music3.mp3"};
   uint8_t currentFileIndex = 0;
 
+  // Check if the music files exist in SPIFFS
+  for (auto &filename : musicFiles)
+  {
+    if (!SPIFFS.exists(filename))
+    {
+      Serial.printf("File %s does not exist!\n", filename.c_str());
+      while (1)
+      {
+        digitalWrite(CORE_LED_PIN, HIGH);
+        delay(100);
+        digitalWrite(CORE_LED_PIN, LOW);
+        delay(100);
+      }
+    }
+  }
+
   while (1)
   {
     // Read the ADC value from ADC1_PIN, range 0-4095
