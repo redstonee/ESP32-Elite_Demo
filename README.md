@@ -1,6 +1,20 @@
 # ESP32-Elite Demo
 
+[中文版](README_zh.md)
+
 Some demo projects for ESP32-Elite Board
+
+ESP32-Elite is a development board based on LCKFB ESP32S3 core
+for beginners and to explore the capabilities of the ESP32 platform.  
+
+The following is a picture of the board with modules installed:
+![ESP32-Elite Board](imgs/asm.png)
+
+and a picture of the board with modules removed:
+![ESP32-Elite Board without modules](imgs/no_mods.png)
+
+The demos are designed to be used with the PlatformIO extension in VSCode,
+allowing users to easily upload code to the board and interact with it.
 
 ## Getting Started
 
@@ -21,7 +35,7 @@ Some demo projects for ESP32-Elite Board
   and print messages to the Serial Monitor when buttons are pressed.
 
 - **Demo 2**: ADC
-  - Shows how to read analog values from the potentiometer,
+  - Demonstrates how to read analog values from the potentiometer,
   display them on the Serial Monitor
   and create a task to control the LED blinking rate
   based on the potentiometer position.
