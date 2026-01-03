@@ -1,1 +1,22 @@
+# Temporary files
 tmp
+*.tmp
+*.bak
+*.swp
+*~
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# IDE specific
+.vscode/settings.json
+.idea/
+
+# Build artifacts (if any demos are built at root level)
+*.o
+*.elf
+*.bin
+
+# Logs
+*.log
